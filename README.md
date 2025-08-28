@@ -1,4 +1,4 @@
-# 🛋️ Vivere Conforto 
+# 🛋️ Vivere Confort
 
 Bem-vindo(a) ao **Vivere Conforto **, um e-commerce desenvolvido para oferecer sofisticação, conforto e praticidade na compra de estofados pela internet.  
 
