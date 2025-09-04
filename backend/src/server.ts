@@ -1,34 +1,27 @@
-import  express, { type Application, type Request, type Response } from 'express'
-import { config } from 'dotenv'
-import cors from 'cors'
+import app from './app';
+import prisma from './config/database';
 
-config()
 
-async function main(){
+const PORT = 3000
 
-    //Cria um aplicativo
-    const app: Application = express()
+async function server(){
 
-    const port = 3000
+    try{
+        // Testar conexao com o banco
+        await prisma.$connect()
+        console.log('Connected to database')
 
-    //servidor entenda requisições que enviam informações no formato JSON
-    app.use(express.json())
-    //permite que o servidor aceite requisições de diferentes origens.
-    app.use(cors())
-
-    app.get('/',(req:Request, res:Response) => {
-        res.send({
-            success: true,
-            statusCode:200,
-            body:'Welcome to Vivere Confort '
+        // Iniciar servidor
+        app.listen(PORT, () => {
+             console.log(`Server us running on port ${PORT}`)
         })
-    })
-
-    app.listen(port, () => {
-        console.log(`Server running on http://localhost:${port}`)
-    })
+    }catch(error){
+        console.error('Failed to start server:', error)
+        process.exit(1)
+    }
 }
 
-main()
+server()
+
 
 
