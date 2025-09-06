@@ -2,7 +2,7 @@ generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
 }
-
+ 
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
@@ -12,11 +12,59 @@ model Product {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   name  String
   price Float
+  description String
+  stock_quantity Int
+  orderItems OrderItems[]
 }
 
+// 1 para muitos - endereço, produtos, pedidos.
 model User {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
+  firstName  String
+  lastName String
+  cpf String @unique
   age   Int
-  email String
-  name  String
+  email String @unique
+  addresses Address[] // Relação 1-N com Address
+  orders Order[] // Relação 1-N com Order
 }
+
+model Order {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String   @db.ObjectId
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status String
+  total_amount Float
+  payment_method String
+  orderItems     OrderItems[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+// Tabela de junção para relação N-N entre Order e Product
+model OrderItems {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String   @db.ObjectId
+  productId String   @db.ObjectId
+  quantity  Int      @default(1)
+  price     Float    // Preço no momento da compra (pode diferir do preço atual)
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([orderId, productId])
+}
+
+model Address{
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String   @db.ObjectId
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  street        String
+  number        Int
+  complement    String?
+  neighborhood  String
+  city          String
+  cep           String
+  country       String
+}
+
+
+
