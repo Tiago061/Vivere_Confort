@@ -1,0 +1,54 @@
+import { prisma } from '../utils/prisma';
+
+export class UsersService {
+
+     async getUsers() {
+        const users = await prisma.user.findMany()
+        return users
+    }
+
+    async getUserById(id: string) {
+        const user = await prisma.user.findUnique({
+            where: { id  }
+        })
+
+        return user
+    }
+
+    async createUser(data: {firstname: string, lastname: string, age: number, email: string, cpf: string, }){
+
+        const user = await prisma.user.create({
+            data: {
+                firstName: data.firstname,
+                lastName: data.lastname,
+                email: data.email,
+                age: data.age,
+                cpf: data.cpf
+            }
+        })
+        return user
+    }
+
+    async deleteUser(id: string) {
+        const user = await prisma.user.delete({
+            where: { id }
+        })
+        return user
+    }
+
+    async updateUser(id: string, data: {firstname: string, lastname: string, age: number, email: string, cpf: string}){
+
+        const user = await prisma.user.update({
+            where: { id },
+            data: {
+                firstName: data.firstname,
+                lastName: data.lastname,
+                email: data.email,
+                age: data.age,
+                cpf: data.cpf,
+            }
+        })
+        return user
+    }
+
+}
