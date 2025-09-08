@@ -1,54 +1,53 @@
 import { prisma } from '../utils/prisma';
+import { UsersService } from '@/services/users';
+import express, { type Application, type Request, type Response } from 'express'
 
-export default class UsersController {
 
-     async getUsers() {
-        const users = await prisma.user.findMany()
-        return users
+export  class UsersController {
+
+     private usersService: UsersService
+    
+    constructor(){
+        this.usersService = new UsersService
     }
 
-    async getUserById(id: string) {
-        const user = await prisma.user.findUnique({
-            where: { id  }
-        })
-
-        return user
+    async getUsers(req: Request, res: Response){
+         try {
+            const users = await this.usersService.getUsers()
+            res.json(users)
+         } catch (error) {
+            res.status(500).json({ error: 'Internal Server error'})
+         }
     }
 
-    async createUser(data: {firstname: string, lastname: string, age: number, email: string, cpf: string, }){
+    async getUserById(req: Request<{ id: string}>, res: Response){
+         try {
+            const { id }= req.params;
+            const user = await this.usersService.getUserById(id)
 
-        const user = await prisma.user.create({
-            data: {
-                firstName: data.firstname,
-                lastName: data.lastname,
-                email: data.email,
-                age: data.age,
-                cpf: data.cpf
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
             }
-        })
-        return user
+
+            return res.json(user)
+            
+         } catch (error) {
+           return res.status(500).json({ error: 'Internal Server error'})
+         }
     }
 
-    async deleteUser(id: string) {
-        const user = await prisma.user.delete({
-            where: { id }
-        })
-        return user
-    }
+     async getUserCreate(req: Request, res: Response){
+         try {
+            const newUser = await this.usersService.createUser(req.body)
 
-    async updateUser(id: string, data: {firstname: string, lastname: string, age: number, email: string, cpf: string}){
-
-        const user = await prisma.user.update({
-            where: { id },
-            data: {
-                firstName: data.firstname,
-                lastName: data.lastname,
-                email: data.email,
-                age: data.age,
-                cpf: data.cpf,
+            if(!newUser){
+                return res.status(404).json({ message: 'User not found' })
             }
-        })
-        return user
+
+            return res.status(201).json(newUser);
+         } catch (error) {
+            res.status(500).json({ error: 'Internal Server error'})
+         }
     }
 
 }
