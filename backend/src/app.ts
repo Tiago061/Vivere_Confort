@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))    
 
 
-app.use('/', usersRoutes)
+app.use('/users', usersRoutes)
 
 app.get('/', async (req: Request, res: Response) => {
         

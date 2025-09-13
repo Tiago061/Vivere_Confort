@@ -1,9 +1,9 @@
 import { AddressDto } from "./address.dto";
 import { OrderDto } from "./order.dto";
 
-export interface CreateUserDto {
-    firstname: string, 
-    lastname: string, 
+export interface UserDto {
+    firstName: string, 
+    lastName: string, 
     age: number, 
     email: string, 
     cpf: string, 
