@@ -1,3 +1,4 @@
+import { CreateUserDto } from '../dtos/user.dto'
 import { prisma } from '../utils/prisma';
 
 export class UsersService {
@@ -12,7 +13,7 @@ export class UsersService {
         })
     }
 
-    async createUser(data: {firstname: string, lastname: string, age: number, email: string, cpf: string, }){
+    async createUser(data: CreateUserDto){
 
         return await prisma.user.create({
             data: {
@@ -20,8 +21,22 @@ export class UsersService {
                 lastName: data.lastname,
                 email: data.email,
                 age: data.age,
-                cpf: data.cpf
-            }
+                cpf: data.cpf,
+                ...(data.addresses?.length && {
+                    addresses: {
+                        create: data.addresses.map(addr => ({
+                        street: addr.street,
+                        number: addr.number,
+                        city: addr.city,
+                        neighborhood: addr.neighborhood,
+                        state: addr.state,
+                        zipCode: addr.zipCode, // ou cep se for o campo do Prisma
+                        country: addr.country,
+                      })),
+                    },
+                }),
+            },
+            include: { addresses: true}
         })
     }
 
