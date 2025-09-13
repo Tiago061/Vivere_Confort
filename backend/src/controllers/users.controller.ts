@@ -15,6 +15,7 @@ export  class UsersController {
             const users = await this.usersService.getUsers()
             res.json(users)
          } catch (error) {
+            console.error(error);
             res.status(500).json({ error: 'Internal Server error'})
          }
     }
@@ -45,6 +46,7 @@ export  class UsersController {
 
             return res.status(201).json(newUser);
          } catch (error) {
+            console.log(error)
             res.status(500).json({ error: 'Internal Server error'})
          }
     }

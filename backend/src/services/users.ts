@@ -1,4 +1,4 @@
-import { CreateUserDto } from '../dtos/user.dto'
+import { UserDto } from '../dtos/user.dto'
 import { prisma } from '../utils/prisma';
 
 export class UsersService {
@@ -13,12 +13,12 @@ export class UsersService {
         })
     }
 
-    async createUser(data: CreateUserDto){
+    async createUser(data: UserDto){
 
         return await prisma.user.create({
             data: {
-                firstName: data.firstname,
-                lastName: data.lastname,
+                firstName: data.firstName,
+                lastName: data.lastName,
                 email: data.email,
                 age: data.age,
                 cpf: data.cpf,
@@ -47,13 +47,13 @@ export class UsersService {
         
     }
 
-    async updateUser(id: string, data: {firstname: string, lastname: string, age: number, email: string, cpf: string}){
+    async updateUser(id: string, data: UserDto){
 
         return await prisma.user.update({
             where: { id },
             data: {
-                firstName: data.firstname,
-                lastName: data.lastname,
+                firstName: data.firstName,
+                lastName: data.lastName,
                 email: data.email,
                 age: data.age,
                 cpf: data.cpf,
