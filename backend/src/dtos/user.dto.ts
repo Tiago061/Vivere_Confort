@@ -1,3 +1,4 @@
+import { AddressDto } from "./address.dto";
 import { OrderDto } from "./order.dto";
 
 export interface CreateUserDto {
