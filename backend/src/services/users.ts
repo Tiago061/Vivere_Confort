@@ -3,21 +3,18 @@ import { prisma } from '../utils/prisma';
 export class UsersService {
 
      async getUsers() {
-        const users = await prisma.user.findMany()
-        return users
+        return await prisma.user.findMany()
     }
 
     async getUserById(id: string) {
-        const user = await prisma.user.findUnique({
+         return await prisma.user.findUnique({
             where: { id  }
         })
-
-        return user
     }
 
     async createUser(data: {firstname: string, lastname: string, age: number, email: string, cpf: string, }){
 
-        const user = await prisma.user.create({
+        return await prisma.user.create({
             data: {
                 firstName: data.firstname,
                 lastName: data.lastname,
@@ -26,19 +23,18 @@ export class UsersService {
                 cpf: data.cpf
             }
         })
-        return user
     }
 
     async deleteUser(id: string) {
-        const user = await prisma.user.delete({
+       return await prisma.user.delete({
             where: { id }
         })
-        return user
+        
     }
 
     async updateUser(id: string, data: {firstname: string, lastname: string, age: number, email: string, cpf: string}){
 
-        const user = await prisma.user.update({
+        return await prisma.user.update({
             where: { id },
             data: {
                 firstName: data.firstname,
@@ -48,7 +44,6 @@ export class UsersService {
                 cpf: data.cpf,
             }
         })
-        return user
     }
 
 }
