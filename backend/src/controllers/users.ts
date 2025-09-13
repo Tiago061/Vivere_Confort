@@ -1,4 +1,3 @@
-import { prisma } from '../utils/prisma';
 import { UsersService } from '@/services/users';
 import express, { type Application, type Request, type Response } from 'express'
 
@@ -8,7 +7,7 @@ export  class UsersController {
      private usersService: UsersService
     
     constructor(){
-        this.usersService = new UsersService
+        this.usersService = new UsersService()
     }
 
     async getUsers(req: Request, res: Response){
