@@ -1,7 +1,6 @@
 import  express, { type Application, type Request, type Response } from 'express'
 import { config } from 'dotenv'
 import cors from 'cors'
-import { prisma } from './utils/prisma';
 
 config()
 
