@@ -1,4 +1,4 @@
-import { UsersService } from '../services/users';
+import { UsersService } from '../services/users.service';
 import {Request, Response } from 'express'
 
 
