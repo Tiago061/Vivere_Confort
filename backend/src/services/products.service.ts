@@ -1,4 +1,4 @@
-
+import { ProductDto } from '../dtos/product.dto';
 import { prisma } from '../utils/prisma';
 
 export class ProductsService {
@@ -17,26 +17,11 @@ export class ProductsService {
 
         return await prisma.product.create({
             data: {
-                firstName: data.firstName,
-                lastName: data.lastName,
-                email: data.email,
-                age: data.age,
-                cpf: data.cpf,
-                ...(data.addresses?.length && {
-                    addresses: {
-                        create: data.addresses.map(addr => ({
-                        street: addr.street,
-                        number: addr.number,
-                        city: addr.city,
-                        neighborhood: addr.neighborhood,
-                        state: addr.state,
-                        zipCode: addr.zipCode, // ou cep se for o campo do Prisma
-                        country: addr.country,
-                      })),
-                    },
-                }),
-            },
-            include: { addresses: true}
+                name: data.nameProduct,
+                price: data.price,
+                description: data.description,
+                stock_quantity: data.stock_quantity,
+            }
         })
     }
 
@@ -52,11 +37,10 @@ export class ProductsService {
         return await prisma.product.update({
             where: { id },
             data: {
-                firstName: data.firstName,
-                lastName: data.lastName,
-                email: data.email,
-                age: data.age,
-                cpf: data.cpf,
+                 name: data.nameProduct,
+                price: data.price,
+                description: data.description,
+                stock_quantity: data.stock_quantity,
             }
         })
     }
