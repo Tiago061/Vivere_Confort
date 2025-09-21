@@ -2,6 +2,7 @@ import  express, { type Application, type Request, type Response } from 'express
 import { config } from 'dotenv'
 import cors from 'cors'
 import usersRoutes from './routes/users.routes'
+import productsRoutes from './routes/products.routes'
 
 config()
 
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }))
 
 
 app.use('/users', usersRoutes)
+app.use('/products', productsRoutes)
 
 app.get('/', async (req: Request, res: Response) => {
         
