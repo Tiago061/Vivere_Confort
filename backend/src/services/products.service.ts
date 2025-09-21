@@ -17,7 +17,7 @@ export class ProductsService {
 
         return await prisma.product.create({
             data: {
-                name: data.nameProduct,
+                name: data.name,
                 price: data.price,
                 description: data.description,
                 stock_quantity: data.stock_quantity,
@@ -37,7 +37,7 @@ export class ProductsService {
         return await prisma.product.update({
             where: { id },
             data: {
-                 name: data.nameProduct,
+                 name: data.name,
                 price: data.price,
                 description: data.description,
                 stock_quantity: data.stock_quantity,
