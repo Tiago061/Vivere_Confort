@@ -1,9 +1,9 @@
 import { ProductImageDto } from "./product-image.dto"
 
 export interface ProductDto {
-    nameProduct: string
+    name: string
     price: number
-    img: ProductDto[]
+    img?: ProductDto[]
     description: string
     stock_quantity: number            
 }
