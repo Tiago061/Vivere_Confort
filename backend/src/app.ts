@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/users', usersRoutes)
 app.use('/products', productsRoutes)
 
-app.get('/', async (req: Request, res: Response) => {
+app.get('/', async (_req: Request, res: Response) => {
         
         res.status(200).json({ 
             success: true,

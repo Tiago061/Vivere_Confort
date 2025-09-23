@@ -1,4 +1,4 @@
-import { ProductImageDto } from "./product-image.dto"
+
 
 export interface ProductDto {
     name: string
