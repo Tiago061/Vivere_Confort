@@ -14,7 +14,7 @@ export class AddressService{
         })
     }
 
-    async createAddress(data: AddressDto){
+    async createAddress(data: AddressDto, userId: string){
         return await prisma.address.create({
             data: {
                 street: data.street,
@@ -25,7 +25,16 @@ export class AddressService{
                 neighborhood: data.neighborhood,
                 country: data.country,
                 user: {
-                    connect: { id: "id-user" }
+                    connect: { id: userId }
+                }
+            },
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        firstName: true,
+                        email: true
+                    }
                 }
             }
         })
