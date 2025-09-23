@@ -1,0 +1,14 @@
+
+services:
+  backend:
+      build: ./backend
+      container_name: vivere_backend
+      restart: always
+      depends_on: []
+      ports:
+        - "3000:3000"
+      volumes:
+        - ./backend:/usr/src/app
+        - /usr/src/app/node_modules
+      command: npm run dev    
+  

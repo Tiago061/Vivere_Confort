@@ -1,17 +1,24 @@
-FROM node:18-alpine
+# Imagem base Node.js
+FROM node:20-alpine
 
-WORKDIR /.
 
-COPY package*.json package.json
-COPY package-lock.json package-lock.json
-COPY prisma ./prisma/ 
+# Diretório de trabalho dentro do container
+WORKDIR /usr/src/app
 
-RUN npm install
+# Copiar apenas package.json e package-lock.json primeiro (cache)
+COPY package*.json ./
 
+# Instalar dependências
+RUN npm ci
+
+# Copiar o restante do código
 COPY . .
 
-RUN npx prisma generate
+# Compilar TypeScript
+RUN npm run build
 
+# Expor a porta da API
 EXPOSE 3000
 
-CMD [ "npm", "run", "start"]
+# Comando para iniciar
+CMD ["node", "dist/index.js"]
