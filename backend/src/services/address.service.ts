@@ -15,29 +15,29 @@ export class AddressService{
     }
 
     async createAddress(data: AddressDto, userId: string){
-        return await prisma.address.create({
-            data: {
-                street: data.street,
-                number: data.number,
-                city: data.city,
-                state: data.state,
-                zipCode: data.zipCode,
-                neighborhood: data.neighborhood,
-                country: data.country,
-                user: {
-                    connect: { id: userId }
-                }
-            },
-            include: {
-                user: {
-                    select: {
-                        id: true,
-                        firstName: true,
-                        email: true
+            return await prisma.address.create({
+                data: {
+                    street: data.street,
+                    number: data.number,
+                    city: data.city,
+                    state: data.state,
+                    zipCode: data.zipCode,
+                    neighborhood: data.neighborhood,
+                    country: data.country,
+                    user: {
+                        connect: { id: userId }
+                    }
+                },
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            firstName: true,
+                            email: true
+                        }
                     }
                 }
-            }
-        })
+            })
     }
 
     async updateAddress(id: string, data: AddressDto){

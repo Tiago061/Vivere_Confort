@@ -25,18 +25,19 @@ export class AddressController {
             const address = await this.addressService.getAddressId(id)
             res.json(address)
         }catch (error) {
-             console.error(error);
             res.status(500).json({ error: 'Internal Server error'})
         }
     }
 
     async createAddress(req: Request, res: Response){
          try{
-            const newAddress = await this.addressService.createAddress(req.body)
+            const { userId, ...data } = req.body // separa userId do resto dos dados
+            const newAddress = await this.addressService.createAddress(data, userId)
             res.json(newAddress)
         }catch (error) {
              console.error(error);
             res.status(500).json({ error: 'Internal Server error'})
+            console.log(error)
         }
     }
 
