@@ -1,14 +1,29 @@
+version: "3.9"
 
 services:
   backend:
-      build: ./backend
-      container_name: vivere_backend
-      restart: always
-      depends_on: []
-      ports:
-        - "3000:3000"
-      volumes:
-        - ./backend:/usr/src/app
-        - /usr/src/app/node_modules
-      command: npm run dev    
-  
+    build: ./backend
+    container_name: vivere_backend
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    command: sh -c "npx prisma generate && npm run dev"
+    depends_on:
+      - mongodb
+    environment:
+      - DATABASE_URL=mongodb://mongodb:27017/vivere_confort
+
+  mongodb:
+    image: mongo:6
+    container_name: vivere_mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
