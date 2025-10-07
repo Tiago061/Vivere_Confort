@@ -13,8 +13,8 @@ services:
     command: sh -c "npx prisma generate && npm run dev"
     depends_on:
       - mongodb
-    environment:
-      - DATABASE_URL=mongodb://mongodb:27017/vivere_confort
+    env_file:
+      - ./backend/.env
 
   mongodb:
     image: mongo:6
