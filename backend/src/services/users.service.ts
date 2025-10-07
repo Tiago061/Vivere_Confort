@@ -61,4 +61,12 @@ export class UsersService {
         })
     }
 
+    //Busca todos os endereços vinculados a um usuário específico
+    async getUserAddress(id: string) {
+        return await prisma.user.findUnique({
+            where: { id: id },
+            include: { addresses: true }, //busca os endereços vinculados ao usuário
+        })
+    }
+
 }
