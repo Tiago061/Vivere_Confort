@@ -75,4 +75,20 @@ export  class UsersController {
          }
     }
 
+     async getUserAddress(req: Request<{ id: string }>, res: Response) {
+
+        const { id } = req.params;
+        try {
+            
+            const userWithAddresses = await this.usersService.getUserAddress(id);
+            if (!userWithAddresses) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+            res.json(userWithAddresses);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+
 }
