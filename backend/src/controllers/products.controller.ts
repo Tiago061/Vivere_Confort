@@ -8,7 +8,7 @@ export class ProductsController {
         this.productsService = new ProductsService();
     }
 
-    async getProducts (req: Request, res: Response) {
+    async getProducts (_req: Request, res: Response) {
         try{
             const products = await this.productsService.getProducts()
             res.json(products)
