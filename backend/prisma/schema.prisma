@@ -16,6 +16,14 @@ model Product {
   stock_quantity Int
   orderItems OrderItems[]
   images ProductImage[] // relação 1:N (um produto tem várias imagens)
+  categoryId String @db.ObjectId
+  category Category @relation(fields: [categoryId], references: [id])
+}
+
+model Category{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  products Product[]
 }
 
 model ProductImage{
