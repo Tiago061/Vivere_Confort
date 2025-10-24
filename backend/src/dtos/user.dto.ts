@@ -7,6 +7,7 @@ export interface UserDto {
     age: number, 
     email: string, 
     cpf: string, 
+    password: string,
     addresses?: AddressDto[],
     orders?: OrderDto[]
             
