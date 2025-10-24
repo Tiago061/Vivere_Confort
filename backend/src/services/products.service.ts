@@ -21,6 +21,12 @@ export class ProductsService {
                 price: data.price,
                 description: data.description,
                 stock_quantity: data.stock_quantity,
+                category:{
+                    connect: {id: data.categoryId}
+                }
+            },
+            include: {
+                category: true,
             }
         })
     }
