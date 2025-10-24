@@ -11,10 +11,9 @@ export class ProductsController {
     async getProducts (_req: Request, res: Response) {
         try{
             const products = await this.productsService.getProducts()
-            res.json(products)
+            return res.json(products)
         }catch (error) {
-             console.error(error);
-            res.status(500).json({ error: 'Internal Server error'})
+            return res.status(500).json({ error: 'Internal Server error'})
         }
     }
 
@@ -22,20 +21,18 @@ export class ProductsController {
         try {
             const { id }= req.params;
             const product = await this.productsService.getProductById(id)
-            res.json(product)
+            return res.json(product)
         } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Internal Server error'})
+            return res.status(500).json({ error: 'Internal Server error'})
         }
     }
 
     async createProduct(req: Request, res: Response) {
         try{
             const newProduct = await this.productsService.createProduct(req.body)
-            res.status(201).json(newProduct)
-        }catch(error){
-            console.error(error)
-            res.status(500).json({ error: 'Internal Server error'})
+            return res.status(201).json(newProduct)
+        }catch(error){   
+          return res.status(500).json({ error: 'Internal Server error'})
         }
     }
     
@@ -43,10 +40,9 @@ export class ProductsController {
         try{
             const { id } = req.params
             const updateProduct = await this.productsService.updateProduct(id , req.body)
-            res.json(updateProduct)
+            return res.json(updateProduct)
         }catch(error){
-            console.error(error)
-            res.status(500).json({ error: 'Internal Server error'})
+            return res.status(500).json({ error: 'Internal Server error'})
         }
     }
 
@@ -54,9 +50,9 @@ export class ProductsController {
         try{
             const { id } = req.params
             const deleteProduct = await this.productsService.deleteProduct(id)
-            res.json(deleteProduct)
+           return res.json(deleteProduct)
         }catch(error){
-            console.error(error)
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
     }
 }

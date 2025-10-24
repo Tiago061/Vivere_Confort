@@ -13,10 +13,10 @@ export  class UsersController {
     async getUsers(_req: Request, res: Response){
          try {
             const users = await this.usersService.getUsers()
-            res.json(users)
+            return res.json(users)
          } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Internal Server error'})
+            
+            return res.status(500).json({ error: 'Internal Server error'})
          }
     }
 
@@ -46,7 +46,7 @@ export  class UsersController {
 
             return res.status(201).json(newUser);
          } catch (error) {
-            console.log(error)
+            
             return res.status(500).json({ error: 'Internal Server error'})
          }
     }
@@ -84,10 +84,9 @@ export  class UsersController {
             if (!userWithAddresses) {
                 return res.status(404).json({ error: 'User not found' });
             }
-            res.json(userWithAddresses);
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Internal Server Error' });
+           return res.json(userWithAddresses);
+        } catch (error) {   
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
     }
 
