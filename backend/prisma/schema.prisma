@@ -41,6 +41,7 @@ model User {
   cpf String @unique
   age   Int
   email String @unique
+  password   String
   addresses Address[] // Relação 1-N com Address
   orders Order[] // Relação 1-N com Order
 }
