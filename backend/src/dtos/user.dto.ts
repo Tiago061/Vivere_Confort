@@ -8,6 +8,7 @@ export interface UserDto {
     email: string, 
     cpf: string, 
     password: string,
+    role: 'USER' | 'ADMIN',
     addresses?: AddressDto[],
     orders?: OrderDto[]
             
