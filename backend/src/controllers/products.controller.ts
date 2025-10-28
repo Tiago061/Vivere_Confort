@@ -13,6 +13,7 @@ export class ProductsController {
             const products = await this.productsService.getProducts()
             return res.json(products)
         }catch (error) {
+            console.error(error);
             return res.status(500).json({ error: 'Internal Server error'})
         }
     }
