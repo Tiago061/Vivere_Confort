@@ -13,7 +13,6 @@ export class CategoryController {
                 const categories = await this.categoryService.getCategories()
                 return res.json(categories)
             }catch (error) {
-                console.error(error);
                return res.status(500).json({ error: 'Internal Server error'})
            }
     }
@@ -24,6 +23,7 @@ export class CategoryController {
             const category = await this.categoryService.getCategoryById(id)
             return res.json(category)
         }catch (error) {
+            
             return res.status(500).json({ error: 'Internal Server error'})
         }   
     }
@@ -33,7 +33,7 @@ export class CategoryController {
             const newCategory = await this.categoryService.createCategory(req.body)
             return res.json(newCategory)
         }catch (error) {
-            
+            console.error(error);
             return res.status(500).json({ error: 'Internal Server error'})
         }   
     }
