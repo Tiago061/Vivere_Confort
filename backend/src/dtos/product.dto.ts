@@ -5,5 +5,6 @@ export interface ProductDto {
     price: number
     img?: ProductDto[]
     description: string
-    stock_quantity: number            
+    stock_quantity: number    
+    categoryId: string        
 }

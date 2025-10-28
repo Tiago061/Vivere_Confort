@@ -11,10 +11,9 @@ export class CategoryController {
     async getCategories(_req: Request, res: Response){
             try{
                 const categories = await this.categoryService.getCategories()
-                res.json(categories)
+                return res.json(categories)
             }catch (error) {
-                console.error(error);
-               res.status(500).json({ error: 'Internal Server error'})
+               return res.status(500).json({ error: 'Internal Server error'})
            }
     }
 
@@ -22,19 +21,20 @@ export class CategoryController {
          try{
             const { id } = req.params
             const category = await this.categoryService.getCategoryById(id)
-            res.json(category)
+            return res.json(category)
         }catch (error) {
-            res.status(500).json({ error: 'Internal Server error'})
+            
+            return res.status(500).json({ error: 'Internal Server error'})
         }   
     }
 
     async createCategory(req: Request, res: Response){
          try{
             const newCategory = await this.categoryService.createCategory(req.body)
-            res.json(newCategory)
+            return res.json(newCategory)
         }catch (error) {
-             console.error(error);
-            res.status(500).json({ error: 'Internal Server error'})
+            console.error(error);
+            return res.status(500).json({ error: 'Internal Server error'})
         }   
     }
 
@@ -42,15 +42,15 @@ export class CategoryController {
          try{
             const { id } = req.params
             const { name  } = req.body
+
              if (!name) {
                 return res.status(400).json({ error: 'Name is required' });
             }
 
             const newCategory = await this.categoryService.updateCategory(id, { name })
-            res.json(newCategory)
+            return res.json(newCategory)
         }catch (error) {
-             console.error(error);
-            res.status(500).json({ error: 'Internal Server error'})
+            return res.status(500).json({ error: 'Internal Server error'})
         }   
     }
 
@@ -58,10 +58,9 @@ export class CategoryController {
          try{
             const { id } = req.params
             const category = await this.categoryService.deleteCategory(id)
-            res.json(category)
+            return res.json(category)
         }catch (error) {
-             console.error(error);
-            res.status(500).json({ error: 'Internal Server error'})
+            return res.status(500).json({ error: 'Internal Server error'})
         }
     }
 

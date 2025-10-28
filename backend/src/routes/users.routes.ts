@@ -1,9 +1,12 @@
 import { UsersController } from '../controllers/users.controller'
 import { Router } from 'express'
+import { authenticateToken } from '../middlewares/auth.middleware'
 
 
 const router = Router()
 const usersController = new UsersController()
+
+router.use(authenticateToken);
 
 router.get('/', (req, res) => usersController.getUsers(req, res))
 router.get('/:id', (req, res) => usersController.getUserById(req, res))
