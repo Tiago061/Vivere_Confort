@@ -1,5 +1,6 @@
 import { UserDto } from '../dtos/user.dto'
 import { prisma } from '../utils/prisma';
+import bcrypt from 'bcrypt'
 
 export class UsersService {
 
@@ -14,12 +15,14 @@ export class UsersService {
     }
 
     async createUser(data: UserDto){
+        const hashedPassword = await bcrypt.hash(data.password, 10)
 
         return await prisma.user.create({
             data: {
                 firstName: data.firstName,
                 lastName: data.lastName,
                 email: data.email,
+                password: hashedPassword,
                 age: data.age,
                 cpf: data.cpf,
                 ...(data.addresses?.length && {
