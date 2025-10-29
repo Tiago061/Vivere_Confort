@@ -1,10 +1,17 @@
-import { OrderItemsDto } from "./orderItems.dto"
 
-export interface OrderDto{
+export interface OrderItemsDto{
+    productId: string
+    quantity: number
+    price: number
+}
+
+export interface CreateOrderDto{
     userId: string
     payment_method: string
     status: string
     orderItems: OrderItemsDto[]
-    createdAt: Date
-    updatedAt: Date
+}
+
+export interface UpdateOrderDto{
+    status: string
 }
