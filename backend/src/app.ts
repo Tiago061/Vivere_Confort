@@ -6,6 +6,7 @@ import productsRoutes from './routes/products.routes'
 import addressRoutes from './routes/address.routes'
 import categoryRoutes from './routes/category.routes'
 import authRoutes from './routes/auth.routes'
+import ordersRoutes from './routes/orders.routes'
 config()
 
 const app: Application = express()
@@ -20,6 +21,7 @@ app.use('/users', usersRoutes)
 app.use('/products', productsRoutes)
 app.use('/addresses', addressRoutes)
 app.use('/categories', categoryRoutes)
+app.use('/orders', ordersRoutes)
 
 
 app.get('/', async (_req: Request, res: Response) => {
