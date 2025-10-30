@@ -1,5 +1,17 @@
-export interface OrderDto{
-    product: string
+
+export interface OrderItemsDto{
+    productId: string
     quantity: number
-    pricer: number
+    price: number
+}
+
+export interface CreateOrderDto{
+    userId: string
+    payment_method: string
+    status: string
+    orderItems: OrderItemsDto[]
+}
+
+export interface UpdateOrderDto{
+    status: string
 }
