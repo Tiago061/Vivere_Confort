@@ -1,19 +1,14 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     extend: {
       colors: {
-        primary: "#1E40AF", // azul exemplo
-        secondary: "#FBBF24", // amarelo exemplo
-        background: "#F9FAFB",
       },
       fontFamily: {
-        Josefin_Sans : ['"Josefin Sans"', 'sans-serif']
       },
     },
   },
