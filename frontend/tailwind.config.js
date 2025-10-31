@@ -13,7 +13,7 @@ module.exports = {
         background: "#F9FAFB",
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        Josefin_Sans : ['"Josefin Sans"', 'sans-serif']
       },
     },
   },
